@@ -22,7 +22,14 @@ func main() {
 	//testPointerUpdate()
 	//testForLoop()
 	//ifExpr()
-	testSwitch("ZCASH")
+	//testSwitch("ZCASH")
+	testDefer()
+}
+
+func testDefer() {
+	for i := 0; i < 5; i++{
+		defer fmt.Println("num..", i)
+	}
 }
 
 func testSwitch(cryptoCoin string) {
