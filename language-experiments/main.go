@@ -8,19 +8,52 @@ import (
 	"strings"
 )
 
+type FullStack interface{
+	languages() []string
+	//platforms() []string
+}
+
 type contactAddr struct {
 	email string
+}
+
+type languages struct {
+	languages []string
 }
 
 type dev struct {
 	name string
 	email contactAddr
+	proficientIn languages
+}
+
+func (d dev) languages() []string{
+	return d.proficientIn.languages
+}
+
+func testInterface(){
+	c := dev{
+		name: "colin",
+		email: contactAddr{
+			email:"cd@gmail.com",
+		},
+		proficientIn: languages{
+			[]string{"Java", "Python", "Kotlin", "GO"},
+		},
+	}
+	fmt.Println(c.languages())
+
+	var a FullStack
+	// a type implements an interface implicitly by implementing its methods
+	a = c
+	fmt.Println(a.languages())
+
 }
 
 func main() {
-	//httpRequest("http://www.google.com")
-	//testPointerUpdate()
-	testForLoop()
+//httpRequest("http://www.google.com")
+	testPointerUpdate()
+	//testForLoop()
 	//ifExpr()
 	// implicitly builds array then slices it
 	//////////////////////////////////////////
@@ -29,6 +62,9 @@ func main() {
 	//////////////////////////////////////////
 	//testDefer()
 	//arrayAndSliceOps()
+
+	testInterface()
+
 }
 
 
