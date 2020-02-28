@@ -20,14 +20,27 @@ type dev struct {
 func main() {
 	//httpRequest("http://www.google.com")
 	//testPointerUpdate()
-	//testForLoop()
+	testForLoop()
 	//ifExpr()
 	// implicitly builds array then slices it
-	coins := []string{"NEO", "ZCASH", "BTC"}
-	testSwitch(coins[0])
+	//////////////////////////////////////////
+	//coins := []string{"NEO", "ZCASH", "BTC"}
+	//testSwitch(coins[0])
+	//////////////////////////////////////////
 	//testDefer()
+	//arrayAndSliceOps()
 }
 
+
+func arrayAndSliceOps() {
+	coinArry := [3]string{"NEO", "ZCASH", "BTC"}
+	slice := coinArry[:2]
+	fmt.Println(slice)
+	fmt.Println("metadata...\n length: ", len(slice), "\n capacity: ", cap(slice))
+
+	slice = append(slice, "ETH")
+	fmt.Println("after append..", slice)
+}
 
 
 func testDefer() {
@@ -69,6 +82,13 @@ func testForLoop() {
 		"red" : "#fffbbb",
 		"green": "#f12345",
 		"white": "#ffffff",
+	}
+
+	// add new color and verify it exist
+	colors["blue"] = "#876541";
+	elem, ok := colors["blue"]
+	if ok {
+		fmt.Println("element lookup result.. " , elem)
 	}
 	// using both object values
 	for color, hex := range colors {
