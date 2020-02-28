@@ -21,15 +21,34 @@ func main() {
 	//httpRequest("http://www.google.com")
 	//testPointerUpdate()
 	//testForLoop()
-	ifExpr()
+	//ifExpr()
+	testSwitch("ZCASH")
 }
+
+func testSwitch(cryptoCoin string) {
+	switch coin := cryptoCoin; coin{
+		case "NEO":
+			fmt.Println("Neo currency")
+		case "ZCASH":
+			fmt.Println("Zcash ZPK currency")
+		case "BTC":
+			fmt.Println("Bitcoin currency")
+		default:
+			fmt.Println("%s.\n", coin)
+	}
+
+}
+
 
 func ifExpr() string{
 	// execute short statement before condition
-	if v := "colin"; v == strings.ToLower("COLIN") {
+	if v := "COLIN"; v == strings.ToLower("COLIN") {
 		fmt.Println(v)
 		return v
+	} else {
+		fmt.Println("no match found for ", v)
 	}
+
 	return "no match"
 }
 
