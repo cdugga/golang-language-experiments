@@ -22,9 +22,13 @@ func main() {
 	//testPointerUpdate()
 	//testForLoop()
 	//ifExpr()
-	//testSwitch("ZCASH")
-	testDefer()
+	// implicitly builds array then slices it
+	coins := []string{"NEO", "ZCASH", "BTC"}
+	testSwitch(coins[0])
+	//testDefer()
 }
+
+
 
 func testDefer() {
 	for i := 0; i < 5; i++{
