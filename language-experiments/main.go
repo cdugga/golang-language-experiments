@@ -31,12 +31,19 @@ func testForLoop() {
 		"white": "#ffffff",
 	}
 
+	// using both object values
 	for color, hex := range colors {
 		fmt.Println("Hex for ", color, "is ", hex)
 	}
 
+	// ignoring hex value
 	for color, _ := range colors {
 		fmt.Println("Color:", color)
+	}
+
+	// explicitly defining loop boundary
+	for i := 0; i <10; i++ {
+		fmt.Println("Iterating...", i)
 	}
 
 }
