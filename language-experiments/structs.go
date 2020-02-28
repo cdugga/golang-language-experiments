@@ -21,11 +21,7 @@ func (d dev) toUpper() (string, string) {
 	return strings.ToUpper(d.name), strings.ToUpper(d.email.email)
 }
 
-// will update the point in memory
-func (d *dev) toUpperWithPointer() {
-	(*d).email.email = strings.ToUpper(d.email.email)
-	(*d).name = strings.ToUpper(d.name)
-}
+
 
 func createDev() dev {
 	d := dev{

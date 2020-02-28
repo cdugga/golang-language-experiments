@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 func testPointerUpdate() {
 	d := createDev()
@@ -17,3 +20,8 @@ func testPointerUpdate() {
 	fmt.Println("Updated...", d.name)
 }
 
+// will update the point in memory
+func (d *dev) toUpperWithPointer() {
+	(*d).email.email = strings.ToUpper(d.email.email)
+	(*d).name = strings.ToUpper(d.name)
+}
