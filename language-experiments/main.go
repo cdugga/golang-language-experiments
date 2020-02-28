@@ -19,9 +19,28 @@ type dev struct {
 
 func main() {
 	//httpRequest("http://www.google.com")
-
-	testPointerUpdate()
+	//testPointerUpdate()
+	testForLoop()
 }
+
+func testForLoop() {
+
+	colors := map[string]string{
+		"red" : "#fffbbb",
+		"green": "#f12345",
+		"white": "#ffffff",
+	}
+
+	for color, hex := range colors {
+		fmt.Println("Hex for ", color, "is ", hex)
+	}
+
+	for color, _ := range colors {
+		fmt.Println("Color:", color)
+	}
+
+}
+
 
 func testPointerUpdate() {
 	d := createDev()
