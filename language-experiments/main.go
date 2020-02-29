@@ -19,5 +19,6 @@ func main() {
 	//testInterface()
 
 	//testTypeAssertions()
-	testTypeSwitch()
+	//testTypeSwitch()
+	testStringer()
 }
