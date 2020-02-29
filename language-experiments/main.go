@@ -20,5 +20,6 @@ func main() {
 
 	//testTypeAssertions()
 	//testTypeSwitch()
-	testStringer()
+	//testStringer()
+	testError()
 }
