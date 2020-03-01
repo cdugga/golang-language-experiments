@@ -1,6 +1,6 @@
 package main
 
-import "language-experiments/goroutines"
+import http_server "language-experiments/http-server"
 
 func main() {
 
@@ -24,5 +24,7 @@ func main() {
 	//testTypeSwitch()
 	//stringer.TestStringer()
 	//testError()
-	goroutines.TestGoRoutines()
+	//goroutines.TestGoRoutines()
+
+	http_server.RunServer()
 }
