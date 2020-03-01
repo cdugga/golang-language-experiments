@@ -1,6 +1,8 @@
 package main
 
-import http_server "language-experiments/http-server"
+import "language-experiments/jsonDecoding"
+
+
 
 func main() {
 
@@ -26,5 +28,7 @@ func main() {
 	//testError()
 	//goroutines.TestGoRoutines()
 
-	http_server.RunServer()
+	//http_server.RunServer()
+
+	jsonDecoding.TestJson()
 }
