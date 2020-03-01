@@ -1,5 +1,7 @@
 package main
 
+import "language-experiments/stringer"
+
 func main() {
 
 	//httpRequest("http://www.google.com")
@@ -20,6 +22,6 @@ func main() {
 
 	//testTypeAssertions()
 	//testTypeSwitch()
-	//testStringer()
-	testError()
+	stringer.TestStringer()
+	//testError()
 }

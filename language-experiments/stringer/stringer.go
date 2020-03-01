@@ -1,4 +1,4 @@
-package main
+package stringer
 
 import "fmt"
 
@@ -14,7 +14,7 @@ func (d developer) String() string {
 	return fmt.Sprintf("%v (%v LTD)", d.name, d.company, d.title, d.primaryLangauage)
 }
 
-func testStringer(){
+func TestStringer(){
 	fmt.Println(developer{
 		"colin",
 		"bridgemate",
