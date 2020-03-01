@@ -1,6 +1,6 @@
 package main
 
-import "language-experiments/stringer"
+import "language-experiments/goroutines"
 
 func main() {
 
@@ -22,6 +22,7 @@ func main() {
 
 	//testTypeAssertions()
 	//testTypeSwitch()
-	stringer.TestStringer()
+	//stringer.TestStringer()
 	//testError()
+	goroutines.TestGoRoutines()
 }
