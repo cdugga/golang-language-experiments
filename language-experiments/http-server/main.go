@@ -12,8 +12,20 @@ func (g GreetingHandler) ServeHTTP(w http.ResponseWriter, r *http.Request){
 	fmt.Fprint(w, g)
 }
 
+func headerHandler(w http.ResponseWriter, r *http.Request){
+	for k,v := range r.Header {
+		fmt.Fprintf(w, "Header field %q, Value %q\n", k, v)
+	}
+}
+
+func handler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Hi there, I love %s!", r.URL.Path[1:])
+}
+
 func RunServer(){
-	err := http.ListenAndServe("localhost:3002", GreetingHandler("Mayo 4 GO"))
+	http.HandleFunc("/goworld", handler)
+	http.HandleFunc("/headers", headerHandler)
+	err := http.ListenAndServe("localhost:3002", nil) //, GreetingHandler("Mayo 4 GO"))
 	if err != nil{
 		log.Fatal(err)
 	}
