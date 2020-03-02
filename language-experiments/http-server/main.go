@@ -6,6 +6,7 @@ import (
 	"github.com/gorilla/mux"
 	"log"
 	"net/http"
+	"net/url"
 )
 
 type GreetingHandler string
@@ -29,6 +30,12 @@ func headerHandler(w http.ResponseWriter, r *http.Request){
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
+	u, _ := url.Parse(r.URL.String())
+
+	params := u.Query()
+	searchTerm := params.Get("name")
+	fmt.Println("Search Query is: ", searchTerm)
+
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(devs)
 
@@ -36,11 +43,11 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 func RunServer(){
 	r := mux.NewRouter()
-
 	r.HandleFunc("/headers", headerHandler).Methods("GET")
 	r.HandleFunc("/devteam", handler).Methods("GET")
 
 	err := http.ListenAndServe("localhost:3002", r) //, GreetingHandler("Mayo 4 GO"))
+
 	if err != nil{
 		log.Fatal(err)
 	}
