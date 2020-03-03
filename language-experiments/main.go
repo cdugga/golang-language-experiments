@@ -1,6 +1,6 @@
 package main
 
-import http_server "language-experiments/http-server"
+import "language-experiments/api_key_request"
 
 func main() {
 
@@ -26,7 +26,7 @@ func main() {
 	//testError()
 	//goroutines.TestGoRoutines()
 
-	http_server.RunServer()
-
+	//http_server.RunServer()
+	api_key_request.FetchEvents()
 	//jsonDecoding.TestJson()
 }
