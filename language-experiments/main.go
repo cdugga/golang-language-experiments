@@ -1,6 +1,6 @@
 package main
 
-import "language-experiments/api_key_request"
+import "language-experiments/request_with_headers"
 
 func main() {
 
@@ -27,6 +27,7 @@ func main() {
 	//goroutines.TestGoRoutines()
 
 	//http_server.RunServer()
-	api_key_request.FetchEvents()
+	//api_key_request.FetchEvents()
 	//jsonDecoding.TestJson()
+	request_with_headers.FetchEventsWithHeaders()
 }
