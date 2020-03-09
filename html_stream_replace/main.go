@@ -10,7 +10,38 @@ import (
 	"strings"
 )
 
+const (
+	STATIC_DIR = "../static/"
+	STATIC_PATH = "/static/"
+	PORT       = "8080"
+)
+
 var myClient = &http.Client{}
+
+func main(){
+	log.Println("Starting server....")
+	r := NewRouter()
+
+	r.HandleFunc("/uploadf", uploadFile)
+	err := http.ListenAndServe(":"+PORT, r) //, GreetingHandler("Mayo 4 GO"))
+	if err != nil{
+		log.Fatal(err)
+	}
+}
+
+func NewRouter() *mux.Router {
+	dir, err := os.Getwd()
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("dir..", dir)
+	r := mux.NewRouter()
+
+	// This will serve files under http://localhost:8000/static/<filename>
+	r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir(dir))))
+
+	return r
+}
 
 func uploadFile(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("File Upload Endpoint Hit")
@@ -53,37 +84,4 @@ func uploadFile(w http.ResponseWriter, r *http.Request) {
 	// return that we have successfully uploaded our file!
 	fmt.Fprint(w, updatedString)
 	// fmt.Fprintf(w, "Successfully Uploaded File\n")
-}
-
-func main(){
-	log.Println("Starting server....")
-	r := NewRouter()
-	r.HandleFunc("/uploadf", uploadFile)
-	//fs := http.FileServer(http.Dir("../static"))
-	//http.Handle("/", fs)
-
-	err := http.ListenAndServe(":"+PORT, r) //, GreetingHandler("Mayo 4 GO"))
-	if err != nil{
-		log.Fatal(err)
-	}
-}
-
-const (
-	STATIC_DIR = "../static/"
-	STATIC_PATH = "/static/"
-	PORT       = "8080"
-)
-
-func NewRouter() *mux.Router {
-	dir, err := os.Getwd()
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println("dir..", dir)
-	r := mux.NewRouter()
-
-	// This will serve files under http://localhost:8000/static/<filename>
-	r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir(dir))))
-
-	return r
 }
