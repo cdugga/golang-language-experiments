@@ -30,6 +30,7 @@ func main(){
 }
 
 func NewRouter() *mux.Router {
+	log.Println("Configuring router...")
 	dir, err := os.Getwd()
 	if err != nil {
 		log.Fatal(err)
@@ -44,11 +45,17 @@ func NewRouter() *mux.Router {
 }
 
 func uploadFile(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("File Upload Endpoint Hit")
+	fmt.Println("Uploading file..")
 
 	// Parse our multipart form, 10 << 20 specifies a maximum
 	// upload of 10 MB files.
 	r.ParseMultipartForm(10 << 20)
+
+	replaceString := r.FormValue("rname")
+
+	fmt.Println("Remove name..", replaceString)
+
+
 	// FormFile returns the first file for the given key `myFile`
 	// it also returns the FileHeader so we can get the Filename,
 	// the Header and the size of the file
@@ -78,10 +85,11 @@ func uploadFile(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err)
 	}
 
-	updatedString := strings.ReplaceAll(string(fileBytes), "Marion Martyn", "colin duggan")
+	updatedString := strings.ReplaceAll(string(fileBytes), replaceString, "Unnamed")
 	// write this byte array to our temporary file
 	tempFile.Write([]byte(updatedString))
 	// return that we have successfully uploaded our file!
+	fmt.Println("Printing file to streamWriter.")
 	fmt.Fprint(w, updatedString)
 	// fmt.Fprintf(w, "Successfully Uploaded File\n")
 }

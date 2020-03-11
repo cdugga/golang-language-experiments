@@ -9,10 +9,11 @@
 <body>
 <form
         enctype="multipart/form-data"
-        action="http://localhost:8080/uploadf"
+        action="/uploadf"
         method="post"
 >
-    <input type="file" name="myFile" />
+    <input type="file" name="myFile" /><br/>
+    Name to remove:<input type="text" id="rname" name="rname"/><br/>
     <input type="submit" value="upload" />
 </form>
 </body>
