@@ -43,7 +43,7 @@ $ gcloud builds submit --tag gcr.io/<project-id>/htmlreplace
 $ gcloud run deploy --image gcr.io/<project-id>/htmlreplace --platform managed
 ```
 
-##Usage
+## Usage
 
 ```bash
 
