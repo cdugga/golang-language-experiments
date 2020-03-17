@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bridgemate.ie - Results Masking Utility</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+  <h2>Bridgemate.ie | Name Masking Utility for Bridge Results</h2>
+  <p><a href="https://www.bridgemate.ie">Visit Bridgemate.ie</a></p>
+  <p>Use this utility to remove player names from HTML results generated from the bridgemate server.</p>
+<form
+        enctype="multipart/form-data"
+        action="/uploadf"
+        method="post"
+>
+   <div class="form-group">
+      <label for="file">Upload generated HTML results:</label>
+      <input type="file" class="form-control" id="myFile" placeholder="Upload file" name="myFile">
+    </div>
+    <div class="form-group">
+      <label for="name">Enter the players name to mask ( masking will replace provided name with "Unnamed".):</label>
+      <input type="text" class="form-control" id="rname" placeholder="Name" name="rname">
+    </div>
+   <input type="submit" value="upload"class="btn btn-primary"/>
+  </form>
+</div>
+
+</body>
+</html>
