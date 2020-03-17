@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/gorilla/mux"
 	"github.com/joho/godotenv"
 	"io/ioutil"
@@ -11,6 +12,17 @@ import (
 	"strings"
 	"time"
 )
+
+type Request struct (
+	ID float64 `json:"id"`
+	Value String `json:"value"`
+)
+
+type Response struct (
+	Message string `json:"message"`
+	OK bool `json:"ok"`
+)
+
 
 const (
 	STATIC_PATH = "/static/"
@@ -26,8 +38,15 @@ const (
 
 var myClient = &http.Client{}
 
-func main(){
+func main() {
+	lambda.Start(Handler)
+}
 
+func Handler(request Request)(Reponse, error){
+
+	return Response{
+		
+	}
 	fmt.Println("Starting server....")
 
 	NewRouter()
