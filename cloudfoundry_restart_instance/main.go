@@ -123,6 +123,10 @@ func execute(env *Environment) {
 			}
 		}
 	}
+
+	if len(restart_candidates) > 0 {
+		restage(restart_candidates[0])
+	}
 }
 	
 }
