@@ -69,7 +69,8 @@ func contains(s []string, e string) bool {
 	return false
 }
 
-func login(env *Environment){
+func execute(env *Environment) {
+
 	conn := fmt.Sprintf("cf login --skip-ssl-validation -a %s -u %s -p %s -o %s", env.target, env.user, env.pass, env.org, env.space)
 
 	out, err := exec.command("/bin/sh", "-c", conn).output()
@@ -78,11 +79,19 @@ func login(env *Environment){
 	}
 
 	fmt.Println("Login Successful")
+	output := string(out[:])
+	fmt.Println(output)
+
+	list_cmd := fmt.Sprintf("cf app %s", env.app)
+	out, err = exec.Command("/bin/sh", "-c", list_cmd).Output()
+	if err != nil{
+		fmt.Printf("%s", err)
+	}
+
+	output = string(out[:])
+
+	temp := strings.Split(output, "\n")
 }
-
-func execute(env *Environment) {
-
-	login()
 	
 }
 
