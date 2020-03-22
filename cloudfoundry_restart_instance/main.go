@@ -22,7 +22,39 @@ type Environment struct {
 	endpoint string
 	pass string
 	space string
+	app string
+	org string
 }
+
+func restage(e string){
+	cmd := fmt.Sprintf("cf restart-app-instance <app-name> %s", e )
+	
+	out, err := exec.Command("/bin/sh", "-c", cmd).Output()
+	if err != null {
+		fmt.Println("%s", err)
+	}
+
+	fmr.Println("Success")
+	output := string(out[:])
+	fmt.Println(output)
+}
+
+func reaching_quota(s string) bool {
+
+	q := false
+	x := strings.Index(s, ".")
+	if x == GIG_UNIT {
+		i , err := strconv.ParseFloat(s, 64)
+		if err != nil{
+			fmt.Println("%s", err)
+		}
+		if i >= QUOTA {
+			q = true
+		}
+	}
+	return q
+}
+
 
 func login(env *Environment){
 	conn := fmt.Sprintf("cf login --skip-ssl-validation -a %s -u %s -p %s -o %s", env.target, env.user, env.pass, env.org, env.space)
