@@ -91,6 +91,38 @@ func execute(env *Environment) {
 	output = string(out[:])
 
 	temp := strings.Split(output, "\n")
+
+	var restart_candidates []strings
+	var current_instance_name strings
+
+	fmt.Println("")
+	for _, i := range temp {
+		tokens := strings.Fields(i)
+
+		if contains(tokens, "#"){
+			
+			for i, s := range tokens {
+				switch index := i, index {
+				case 0:
+					current_instance_name = strings.Replace(s, "#", "", -1)
+					fmt.Println("Instance id: ", s)
+				case 1:
+					fmt.Println("State: ", s)
+				case 7:
+					current_usage := strip_units(s)
+					fmt.Println("Disk (current): ", s)
+					isReachingQuota := reaching_quota(restart_candidates, current_instance_name)
+					if isReachingQuota {
+						restart_candidates = append(restart_candidates)
+					}
+					fmt.Println("Disk is reaching quota (true|false): ", isReachingQuota)
+				case 9:
+					fmt.Println("Disk (quota): ", s)
+				default:
+				}
+			}
+		}
+	}
 }
 	
 }
