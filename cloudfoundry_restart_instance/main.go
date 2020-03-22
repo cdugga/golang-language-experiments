@@ -60,6 +60,15 @@ func strip_unit(s string) string {
 	return re.ReplaceAllString(s, ``)
 }
 
+func contains(s []string, e string) bool {
+	for _,i := range s{
+		if strings.Contains(i, e){
+			return true
+		}
+	}
+	return false
+}
+
 func login(env *Environment){
 	conn := fmt.Sprintf("cf login --skip-ssl-validation -a %s -u %s -p %s -o %s", env.target, env.user, env.pass, env.org, env.space)
 
