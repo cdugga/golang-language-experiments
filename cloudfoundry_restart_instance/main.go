@@ -88,6 +88,6 @@ func execute(env *Environment) {
 
 func main(){
 	
-	env := &Environment{os.Args[1],os.Args[2],os.Args[3],os.Args[4],os.Args[5],}
+	env := &Environment{os.Args[1],os.Args[2],os.Args[3],os.Args[4],os.Args[5],os.Args[6]}
 	execute(env)
 }
