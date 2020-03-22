@@ -13,7 +13,7 @@ import (
 const (
 	QUOTA	= 1.9
 	GIG_UNIT = 1
-	UNINT_REGEX = `[a-zA-Z]+`
+	UNIT_REGEX = `[a-zA-Z]+`
 )
 
 type Environment struct {
@@ -55,6 +55,10 @@ func reaching_quota(s string) bool {
 	return q
 }
 
+func strip_unit(s string) string {
+	var re = regexp.MustCompile(UNIT_REGEX)
+	return re.ReplaceAllString(s, ``)
+}
 
 func login(env *Environment){
 	conn := fmt.Sprintf("cf login --skip-ssl-validation -a %s -u %s -p %s -o %s", env.target, env.user, env.pass, env.org, env.space)
