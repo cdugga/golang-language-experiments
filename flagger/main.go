@@ -7,19 +7,24 @@ import (
 
 func main() {
 
-    wordPtr := flag.String("word", "foo", "a string")
+	swaggerPtr := flag.String("swagger_uri", "", "Swagger.json endpoint")
+	apiNamePtr := flag.String("api_name", "", "API Proxy name")
+	basePathPtr := flag.String("base_path", "", "Base Path")
+	displayPtr := flag.String("api_display_name", "", "API Display Name")
+	envPtr := flag.String("env", "", "DEV|QA|PROD")
+	descPtr := flag.String("api_desc", "", "API Description")
+	intExtPtr := flag.String("internal_external", "", "Internal|External")
+	pprfTargetPtr := flag.String("pperf_target", "", "PPERF Target API")
+	devTargetPtr := flag.String("dev_target", "", "DEV Target API")
+	userPtr := flag.String("apigee_user", "", "Username")
+	passPtr := flag.String("apigee_pass", "", "Password")
 
-    numbPtr := flag.Int("numb", 42, "an int")
-    boolPtr := flag.Bool("fork", false, "a bool")
-
-    var svar string
-    flag.StringVar(&svar, "svar", "bar", "a string var")
-
+   
     flag.Parse()
 
-    fmt.Println("word:", *wordPtr)
-    fmt.Println("numb:", *numbPtr)
-    fmt.Println("fork:", *boolPtr)
-    fmt.Println("svar:", svar)
-    fmt.Println("tail:", flag.Args())
+    // fmt.Println("word:", *wordPtr)
+    // fmt.Println("numb:", *numbPtr)
+    // fmt.Println("fork:", *boolPtr)
+    // fmt.Println("svar:", svar)
+    // fmt.Println("tail:", flag.Args())
 }
