@@ -1,0 +1,1 @@
+go run main -swagger_uri=http://someendpoint.com

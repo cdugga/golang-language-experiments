@@ -22,9 +22,16 @@ func main() {
    
     flag.Parse()
 
-    // fmt.Println("word:", *wordPtr)
-    // fmt.Println("numb:", *numbPtr)
-    // fmt.Println("fork:", *boolPtr)
-    // fmt.Println("svar:", svar)
-    // fmt.Println("tail:", flag.Args())
+    fmt.Println("swaggerPtr:", *swaggerPtr)
+    fmt.Println("apiNamePtr:", *apiNamePtr)
+    fmt.Println("basePathPtr:", *basePathPtr)
+	fmt.Println("displayPtr:", *displayPtr)
+	fmt.Println("envPtr:", *envPtr)
+	fmt.Println("descPtr:", *descPtr)
+	fmt.Println("intExtPtr:", *intExtPtr)
+	fmt.Println("pprfTargetPtr:", *pprfTargetPtr)
+	fmt.Println("devTargetPtr:", *devTargetPtr)
+	fmt.Println("userPtr:", *userPtr)
+	fmt.Println("passPtr:", *passPtr)
+
 }
