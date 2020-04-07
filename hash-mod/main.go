@@ -1,12 +1,36 @@
 package main
 
 import (
+
 	"fmt"
 	"github.com/urfave/cli/v2"
+	"io/ioutil"
 	"log"
+	"net/http"
 	"os"
 	"sort"
 )
+
+func fetch(){
+
+	endpoint := "https://bing.com/covid/data"
+	resp, err := http.Get(endpoint)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer resp.Body.Close()
+
+	responseData, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	responseString := string(responseData)
+	fmt.Printf(responseString)
+
+}
+
 
 func main() {
 
@@ -22,17 +46,18 @@ func main() {
 						Destination: &language,
 					},
 					&cli.StringFlag{
-						Name:  "name, n",
+							Name:  "name, n",
 						Usage: "Enter name",
 						Destination: &name,
 					},
 				},
 				Name:    "print",
 				Aliases: []string{"p"},
-				Usage:   "print greeting",
+				Usage:   "print statistics",
 
 				Action: func(c *cli.Context) error {
 					//name := "Nefertiti"
+					fetch()
 					if c.NArg() > 0 {
 						name = c.Args().Get(0)
 					}
@@ -44,14 +69,7 @@ func main() {
 					return nil
 				},
 			},
-			{
-				Name:    "add",
-				Aliases: []string{"a"},
-				Usage:   "add a task to the list",
-				Action:  func(c *cli.Context) error {
-					return nil
-				},
-			},
+
 		},
 
 	}
