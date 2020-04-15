@@ -1,8 +1,10 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/urfave/cli/v2"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -19,23 +21,27 @@ func fetch(){
 	}
 	defer resp.Body.Close()
 
-	//responseData, err := ioutil.ReadAll(resp.Body)
-	//if err != nil {
-//		log.Fatal(err)//
-//	}
+	responseData, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		log.Fatal(err)//
+	}
 
+	var data Covid19
+
+	json.Unmarshal(responseData, &data)
+
+	fmt.Printf("Results: %v\n", data)
 	//responseString := string(responseData)
 	//fmt.Printf(responseString)
 
 }
-
 
 func main() {
 
 	var name,language string
 	app := &cli.App{
 		Name: "Apigee Publish API CLI Utility",
-		Usage: "Create API Proxy Endpoints",
+		//Usage: "Create API Proxy Endpoints",
 		Commands: []*cli.Command{
 			{
 				Flags: []cli.Flag{
@@ -44,13 +50,13 @@ func main() {
 						Aliases: []string{"l"},
 						Value: "english",
 						Usage: "Language for the greeting",
-						Destination: &language,
+						//Destination: &language,
 					},
 					&cli.StringFlag{
 						Name:  "name, n",
 						Aliases: []string{"n"},
 						Usage: "Enter name",
-						Destination: &name,
+						//Destination: &name,
 					},
 				},
 				Name:    "proxy",
@@ -87,7 +93,7 @@ func main() {
 						Destination: &name,
 					},
 				},
-				Name:    "product",
+				Name:    "print",
 				Aliases: []string{"pr"},
 				Usage:   "Create Apigee Product",
 
