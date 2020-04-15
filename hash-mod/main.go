@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	//"encoding/json"
 	"fmt"
 	"github.com/urfave/cli/v2"
 	"io/ioutil"
@@ -11,8 +12,13 @@ import (
 	"sort"
 )
 
-func fetch(){
+//func get_country(country string)
+//
+//
+//}
 
+func fetch(){
+//https://bing.com/covid/bingapi?ig=D2B3E0842901457D905B372A2C206E86&q=coronavirus%20Ireland&api=videos&count=7
 	endpoint := "https://bing.com/covid/data"
 	resp, err := http.Get(endpoint)
 
@@ -20,19 +26,15 @@ func fetch(){
 		log.Fatal(err)
 	}
 	defer resp.Body.Close()
-
 	responseData, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		log.Fatal(err)//
 	}
 
 	var data Covid19
-
 	json.Unmarshal(responseData, &data)
-
-	fmt.Printf("Results: %v\n", data)
-	//responseString := string(responseData)
-	//fmt.Printf(responseString)
+	//fmt.Printf("Results: %v\n", string(responseData))
+	fmt.Printf("Results: %v\n", data.Areas[0])
 
 }
 
