@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	//"encoding/json"
 	"fmt"
 	"github.com/urfave/cli/v2"
 	"io/ioutil"
@@ -11,6 +10,17 @@ import (
 	"os"
 	"sort"
 )
+
+
+func (a *Areas) print() {
+	fmt.Printf("Country: %v\n", a.DisplayName);
+	fmt.Printf("Last Updated: %v\n", a.LastUpdated);
+	fmt.Printf("Total Confirmed Cases: %v\n", a.TotalConfirmed);
+	fmt.Printf("Total Deaths: %v\n", a.TotalDeaths);
+	fmt.Printf("Total Recovered: %v\n", a.TotalRecovered);
+	fmt.Printf("Total Confirmed Delta: %v\n", a.TotalConfirmedDelta);
+	fmt.Printf("Total Recovered Delta: %v\n", a.TotalRecoveredDelta);
+}
 
 func find (a [] Areas, x string) int {
 	for i, n := range a {
@@ -21,9 +31,13 @@ func find (a [] Areas, x string) int {
 	return len(a)
 }
 
+func (c *Covid19)  areaDetails (p int) Areas {
+		return c.Areas[p]
+}
 
-func (c *Covid19) get_country(x string) int {
-	return find(c.Areas, x)
+func (c *Covid19) getCountry(x string) Areas {
+	i := find(c.Areas, x)
+	return c.areaDetails(i)
 }
 
 func fetch() {
@@ -44,9 +58,9 @@ func fetch() {
 	json.Unmarshal(responseData, &data)
 	//fmt.Printf("Results: %v\n", string(responseData))
 	//fmt.Printf("Results: %v\n", data.Areas[0])
-	loc := data.get_country("unitedstates")
-	fmt.Printf("Results: %v\n", loc)
-
+	a := data.getCountry("ireland")
+	//fmt.Printf("Results: %v\n", a)
+	a.print()
 }
 
 func main() {
@@ -78,7 +92,7 @@ func main() {
 
 				Action: func(c *cli.Context) error {
 					//name := "Nefertiti"
-					fetch()
+					//fetch()
 					if c.NArg() > 0 {
 						name = c.Args().Get(0)
 					}
@@ -112,7 +126,7 @@ func main() {
 
 				Action: func(c *cli.Context) error {
 					//name := "Nefertiti"
-					fetch()
+					//fetch()
 					if c.NArg() > 0 {
 						name = c.Args().Get(0)
 					}
