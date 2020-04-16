@@ -79,19 +79,13 @@ func main() {
 						Usage: "Country (without spaces E.g. unitedstates)",
 						Destination: &country,
 					},
-					&cli.StringFlag{
-						Name:  "name, n",
-						Aliases: []string{"n"},
-						Usage: "Enter name",
-						Destination: &name,
-					},
 				},
-				Name:    "covid19",
-				Aliases: []string{"p"},
+				Name:    "stats",
+				Aliases: []string{"s"},
 				Usage:   "Create Apigee API Proxy",
 
 				Action: func(c *cli.Context) error {
-					//name := "Nefertiti"
+
 					if c.NArg() > 0 {
 						name = c.Args().Get(0)
 					}
@@ -104,47 +98,13 @@ func main() {
 					return nil
 				},
 			},
-			//{
-			//	Flags: []cli.Flag{
-			//		&cli.StringFlag{
-			//			Name:  "lang, l",
-			//			Aliases: []string{"l"},
-			//			Value: "english",
-			//			Usage: "Language for the greeting",
-			//			Destination: &language,
-			//		},
-			//		&cli.StringFlag{
-			//			Name:  "name, n",
-			//			Aliases: []string{"n"},
-			//			Usage: "Enter name",
-			//			Destination: &name,
-			//		},
-			//	},
-			//	Name:    "print",
-			//	Aliases: []string{"pr"},
-			//	Usage:   "Create Apigee Product",
-			//
-			//	Action: func(c *cli.Context) error {
-			//		//name := "Nefertiti"
-			//		//fetch()
-			//		if c.NArg() > 0 {
-			//			name = c.Args().Get(0)
-			//		}
-			//		if language == "spanish" {
-			//			fmt.Println("Hola", name)
-			//		} else {
-			//			fmt.Println("Hello", name)
-			//		}
-			//		return nil
-			//	},
-			//},
 
 		},
 
 
 	}
 
-	sort.Sort(cli.FlagsByName(app.Flags))
+	//sort.Sort(cli.FlagsByName(app.Flags))
 	sort.Sort(cli.CommandsByName(app.Commands))
 	err := app.Run(os.Args)
 	if err != nil {
