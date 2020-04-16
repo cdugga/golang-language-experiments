@@ -40,7 +40,7 @@ func (c *Covid19) getCountry(x string) Areas {
 	return c.areaDetails(i)
 }
 
-func fetch() {
+func fetch(z string) {
 //https://bing.com/covid/bingapi?ig=D2B3E0842901457D905B372A2C206E86&q=coronavirus%20Ireland&api=videos&count=7
 	endpoint := "https://bing.com/covid/data"
 	resp, err := http.Get(endpoint)
@@ -58,60 +58,26 @@ func fetch() {
 	json.Unmarshal(responseData, &data)
 	//fmt.Printf("Results: %v\n", string(responseData))
 	//fmt.Printf("Results: %v\n", data.Areas[0])
-	a := data.getCountry("ireland")
+	a := data.getCountry(z)
 	//fmt.Printf("Results: %v\n", a)
 	a.print()
 }
 
 func main() {
 
-	var name,language string
+	var name,country string
 	app := &cli.App{
-		Name: "Apigee Publish API CLI Utility",
-		//Usage: "Create API Proxy Endpoints",
+		Name: "Covid19 Latest Statistics",
+		Usage: "Search for latest statistics based on country name (no spaces)",
 		Commands: []*cli.Command{
 			{
 				Flags: []cli.Flag{
 					&cli.StringFlag{
-						Name:  "lang, l",
-						Aliases: []string{"l"},
-						Value: "english",
-						Usage: "Language for the greeting",
-						//Destination: &language,
-					},
-					&cli.StringFlag{
-						Name:  "name, n",
-						Aliases: []string{"n"},
-						Usage: "Enter name",
-						//Destination: &name,
-					},
-				},
-				Name:    "proxy",
-				Aliases: []string{"p"},
-				Usage:   "Create Apigee API Proxy",
-
-				Action: func(c *cli.Context) error {
-					//name := "Nefertiti"
-					//fetch()
-					if c.NArg() > 0 {
-						name = c.Args().Get(0)
-					}
-					if language == "spanish" {
-						fmt.Println("Hola", name)
-					} else {
-						fmt.Println("Hello", name)
-					}
-					return nil
-				},
-			},
-			{
-				Flags: []cli.Flag{
-					&cli.StringFlag{
-						Name:  "lang, l",
-						Aliases: []string{"l"},
-						Value: "english",
-						Usage: "Language for the greeting",
-						Destination: &language,
+						Name:  "country, c",
+						Aliases: []string{"c"},
+						Value: "ireland",
+						Usage: "Country (without spaces E.g. unitedstates)",
+						Destination: &country,
 					},
 					&cli.StringFlag{
 						Name:  "name, n",
@@ -120,24 +86,58 @@ func main() {
 						Destination: &name,
 					},
 				},
-				Name:    "print",
-				Aliases: []string{"pr"},
-				Usage:   "Create Apigee Product",
+				Name:    "covid19",
+				Aliases: []string{"p"},
+				Usage:   "Create Apigee API Proxy",
 
 				Action: func(c *cli.Context) error {
 					//name := "Nefertiti"
-					//fetch()
 					if c.NArg() > 0 {
 						name = c.Args().Get(0)
 					}
-					if language == "spanish" {
-						fmt.Println("Hola", name)
-					} else {
-						fmt.Println("Hello", name)
-					}
+					fetch(country)
+					//if country == "spanish" {
+					//	fmt.Println("Hola", name)
+					//} else {
+					//	fmt.Println("Hello", name)
+					//}
 					return nil
 				},
 			},
+			//{
+			//	Flags: []cli.Flag{
+			//		&cli.StringFlag{
+			//			Name:  "lang, l",
+			//			Aliases: []string{"l"},
+			//			Value: "english",
+			//			Usage: "Language for the greeting",
+			//			Destination: &language,
+			//		},
+			//		&cli.StringFlag{
+			//			Name:  "name, n",
+			//			Aliases: []string{"n"},
+			//			Usage: "Enter name",
+			//			Destination: &name,
+			//		},
+			//	},
+			//	Name:    "print",
+			//	Aliases: []string{"pr"},
+			//	Usage:   "Create Apigee Product",
+			//
+			//	Action: func(c *cli.Context) error {
+			//		//name := "Nefertiti"
+			//		//fetch()
+			//		if c.NArg() > 0 {
+			//			name = c.Args().Get(0)
+			//		}
+			//		if language == "spanish" {
+			//			fmt.Println("Hola", name)
+			//		} else {
+			//			fmt.Println("Hello", name)
+			//		}
+			//		return nil
+			//	},
+			//},
 
 		},
 
