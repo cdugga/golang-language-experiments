@@ -12,12 +12,21 @@ import (
 	"sort"
 )
 
-//func get_country(country string)
-//
-//
-//}
+func find (a [] Areas, x string) int {
+	for i, n := range a {
+		if x == n.ID {
+			return i;
+		}
+	}
+	return len(a)
+}
 
-func fetch(){
+
+func (c *Covid19) get_country(x string) int {
+	return find(c.Areas, x)
+}
+
+func fetch() {
 //https://bing.com/covid/bingapi?ig=D2B3E0842901457D905B372A2C206E86&q=coronavirus%20Ireland&api=videos&count=7
 	endpoint := "https://bing.com/covid/data"
 	resp, err := http.Get(endpoint)
@@ -34,7 +43,9 @@ func fetch(){
 	var data Covid19
 	json.Unmarshal(responseData, &data)
 	//fmt.Printf("Results: %v\n", string(responseData))
-	fmt.Printf("Results: %v\n", data.Areas[0])
+	//fmt.Printf("Results: %v\n", data.Areas[0])
+	loc := data.get_country("unitedstates")
+	fmt.Printf("Results: %v\n", loc)
 
 }
 
