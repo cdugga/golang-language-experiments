@@ -41,7 +41,6 @@ func (c *Covid19) getCountry(x string) Areas {
 }
 
 func fetch(z string) {
-//https://bing.com/covid/bingapi?ig=D2B3E0842901457D905B372A2C206E86&q=coronavirus%20Ireland&api=videos&count=7
 	endpoint := "https://bing.com/covid/data"
 	resp, err := http.Get(endpoint)
 
@@ -56,10 +55,7 @@ func fetch(z string) {
 
 	var data Covid19
 	json.Unmarshal(responseData, &data)
-	//fmt.Printf("Results: %v\n", string(responseData))
-	//fmt.Printf("Results: %v\n", data.Areas[0])
 	a := data.getCountry(z)
-	//fmt.Printf("Results: %v\n", a)
 	a.print()
 }
 
@@ -90,11 +86,7 @@ func main() {
 						name = c.Args().Get(0)
 					}
 					fetch(country)
-					//if country == "spanish" {
-					//	fmt.Println("Hola", name)
-					//} else {
-					//	fmt.Println("Hello", name)
-					//}
+
 					return nil
 				},
 			},
