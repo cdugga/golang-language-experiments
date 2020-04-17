@@ -28,7 +28,12 @@ SubCommands
 ```
 
 
-some text
-go set env GO111MODULE="on"
-##RUN
-go run ./main.go p -n colin -l english
+**Installation Options**
+---
+
+1. Install with [`go get`](https://github.com/cdugga/golang-repos/tree/master/hash-mod)
+    + `$ todo`
+    + `$ todo`
+
+2. Download the `covidstat` binary.
+
