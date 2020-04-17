@@ -5,6 +5,29 @@
 ![Terminal Demo](covidr19.png)
 
 
+**Usage**
+---
+
+```
+Usage: main.go [OPTIONS]
+
+  Fetch latest Covid19 statistics from around the globe.
+  Developed by Colin -> (Github: cdugga)
+
+
+Commands:
+  --stats, -s        Fetch statistics.
+  --help, -h         Show this message and exit.
+
+Flags
+  --country, -c    Speifiy country name
+
+SubCommands
+  --detailed         Return region specific data where available 
+
+```
+
+
 some text
 go set env GO111MODULE="on"
 ##RUN
