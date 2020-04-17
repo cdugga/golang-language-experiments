@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/urfave/cli/v2"
 	"io/ioutil"
 	"log"
@@ -11,33 +10,9 @@ import (
 	"sort"
 )
 
-
-func (a *Areas) print() {
-	fmt.Printf("Country: %v\n", a.DisplayName);
-	fmt.Printf("Last Updated: %v\n", a.LastUpdated);
-	fmt.Printf("Total Confirmed Cases: %v\n", a.TotalConfirmed);
-	fmt.Printf("Total Deaths: %v\n", a.TotalDeaths);
-	fmt.Printf("Total Recovered: %v\n", a.TotalRecovered);
-	fmt.Printf("Total Confirmed Delta: %v\n", a.TotalConfirmedDelta);
-	fmt.Printf("Total Recovered Delta: %v\n", a.TotalRecoveredDelta);
-}
-
-func (a *Areas) printNested() {
-	fmt.Printf("Country: %v\n", a.DisplayName);
-	fmt.Printf("Last Updated: %v\n", a.LastUpdated);
-	fmt.Printf("Total Confirmed Cases: %v\n", a.TotalConfirmed);
-	fmt.Printf("Total Deaths: %v\n", a.TotalDeaths);
-	fmt.Printf("Total Recovered: %v\n", a.TotalRecovered);
-	fmt.Printf("Total Confirmed Delta: %v\n", a.TotalConfirmedDelta);
-	fmt.Printf("Total Recovered Delta: %v\n", a.TotalRecoveredDelta);
-
-	if len(a.Areas) > 0 {
-		l := a.Areas
-		for _, r := range l {
-			r.print()
-		}
-	}
-}
+const (
+	covid19Endpoint = "https://bing.com/covid/data"
+)
 
 func find (a [] Areas, x string) int {
 	for i, n := range a {
@@ -48,26 +23,18 @@ func find (a [] Areas, x string) int {
 	return len(a)
 }
 
-func (c *Covid19)  areaDetails (p int) Areas {
-		return c.Areas[p]
-}
-
-func (c *Covid19) getCountry(x string) Areas {
-	i := find(c.Areas, x)
-	return c.areaDetails(i)
-}
-
 func fetch(z string, d bool) {
-	endpoint := "https://bing.com/covid/data"
+	endpoint := covid19Endpoint
 	resp, err := http.Get(endpoint)
 
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	defer resp.Body.Close()
 	responseData, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		log.Fatal(err)//
+		log.Fatal(err)
 	}
 
 	var data Covid19
@@ -85,8 +52,8 @@ func main() {
 
 	var name,country string
 	app := &cli.App{
-		Name: "Covid19 Latest Statistics",
-		Usage: "Search for latest statistics based on country name (no spaces)",
+		Name: "Latest Covid19 Statistics from around the world.",
+		Usage: "Fetch latest published statistics per country",
 		Commands: []*cli.Command{
 			{
 				Flags: []cli.Flag{
@@ -94,13 +61,13 @@ func main() {
 						Name:  "country, c",
 						Aliases: []string{"c"},
 						Value: "ireland",
-						Usage: "Country (without spaces E.g. unitedstates)",
+						Usage: "Country (without spaces E.g. unitedstates, unitedkingdom, ireland)",
 						Destination: &country,
 					},
 				},
 				Name:    "stats",
 				Aliases: []string{"s"},
-				Usage:   "Create Apigee API Proxy",
+				Usage:   "Display latest Covid19 statistics from around the world.",
 				Action: func(c *cli.Context) error {
 					if c.NArg() > 0 {
 						name = c.Args().Get(0)
@@ -111,7 +78,7 @@ func main() {
 				Subcommands: []*cli.Command{
 					{
 						Name:  "detailed",
-						Usage: "View detailed information",
+						Usage: "Display detailed regional information (if published).",
 						Action: func(c *cli.Context) error {
 							//fmt.Println("something new: ", c.Args().First())
 							fetch(country, true)
@@ -120,22 +87,6 @@ func main() {
 					},
 				},
 			},
-			{
-				Name:        "template",
-				Aliases:     []string{"t"},
-				Usage:       "options for task templates",
-				Subcommands: []*cli.Command{
-				{
-					Name:  "add",
-					Usage: "add a new template",
-					Action: func(c *cli.Context) error {
-						fmt.Println("new task template: ", c.Args().First())
-						return nil
-					},
-				},
-				},
-			},
-
 		},
 	}
 
