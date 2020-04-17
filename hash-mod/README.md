@@ -2,7 +2,7 @@
 
 `CovidStat` is a simple command line program to fetch latest Covid19 statistics from around the world.
 
-![Terminal Demo](covidr.png)
+![Terminal Demo](covidr19.png)
 
 
 some text
