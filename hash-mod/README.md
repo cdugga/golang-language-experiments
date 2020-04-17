@@ -37,3 +37,12 @@ SubCommands
 
 2. Download the `covidstat` binary.
 
+
+## Authors
+
+* **Colin Duggan** - *All dev work* - [LinkedIn](https://www.linkedin.com/in/colinduggan/?originalSubdomain=ie)
+
+
+## Acknowledgments
+
+* None yet!
