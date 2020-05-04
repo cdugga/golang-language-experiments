@@ -1,4 +1,4 @@
-module github.com/cdugga/golang-repos/tree/master/aws-inventory/cloudlist
+module github.com/cdugga/golang-repos/aws-inventory/cloudlist
 
 go 1.14
 
