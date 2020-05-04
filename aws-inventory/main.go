@@ -31,14 +31,12 @@ const (
 
 func serveDynamicResults(c CloudType) {
 
-	//tmpl := template.Must(template.ParseFiles("inventory.html"))
 	http.HandleFunc("/inventory", c.ShowHandler)
 	http.ListenAndServe(":3000", nil)
 }
 
 
 func fetchData (c CloudType, r string, dataType CloudDataType){
-	//TODO: Use r param to choose which resource to fetch
 
 	switch dataType {
 	case Pricing: {
@@ -63,14 +61,6 @@ func fetchResources(p string, r string, dt CloudDataType) {
 				limit:  "5",
 			}
 			fetchData(aws, r, dt)
-		}
-
-	case "gcp": {
-			gcp := &GCPCloud{
-				region: "us-east-1",
-				limit:  "5",
-			}
-			fetchData(gcp, r, dt)
 		}
 	default:
 		{

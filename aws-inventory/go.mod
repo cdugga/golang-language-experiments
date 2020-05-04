@@ -1,4 +1,4 @@
-module github.com/cdugga/multi_cloud_manager/cloudm
+module github.com/cdugga/golang-repos/tree/master/aws-inventory/cloudlist
 
 go 1.14
 

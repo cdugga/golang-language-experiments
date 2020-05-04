@@ -29,7 +29,7 @@ SubCommands
 **Installation Options**
 ---
 
-1. Install with [`go get`](https://github.com/cdugga/golang-repos/aws-inventory)
+1. Install with [`go get github.com/cdugga/golang-repos/tree/master/aws-inventory/cloudlist`](https://github.com/cdugga/golang-repos/aws-inventory)
     + `$ go install`
     + `$ cloudlist resoruces --provider aws`
 
