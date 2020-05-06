@@ -73,7 +73,7 @@ func main() {
 	var provider, resource string = "aws", "all"
 	var dataType CloudDataType = Resource
 
-	myFigure := figure.NewFigure("CloudManager", "speed", true)
+	myFigure := figure.NewFigure("CloudList", "speed", true)
 	myFigure.Print()
 
 	app := &cli.App{
