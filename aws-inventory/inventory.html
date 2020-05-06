@@ -98,6 +98,24 @@
         <tbody>
         {{end}}
     </table>
+    <h2>CloudFormation Stacks</h2>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Stack Name</th>
+            <th>Stack ID</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{range .CFStacks}}
+        <tr>
+            <td>{{.Name}}</td>
+            <td>{{.Description}}</td>
+        </tr>
+        </thead>
+        <tbody>
+        {{end}}
+    </table>
 </div>
 </body>
 </html>

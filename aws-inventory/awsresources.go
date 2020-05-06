@@ -28,6 +28,7 @@ type AWSCloud struct {
 	DynamoDB []DynamoDB
 	ApiGateway []ApiGateway
 	CFStackSets []CFStackSets
+	CFStacks []CFStacks
 }
 
 func printSubHeader(r string) string {
@@ -99,8 +100,7 @@ func (a *AWSCloudResource) ListDBTables(s interface{}) []DynamoDB {
 	dynamoDBSvc := dynamodb.New(sess)
 	result, err := dynamoDBSvc.ListTables(nil)
 	a.handleError("Unable to list DynamoDB tables", err)
-	a.printHeader(printSubHeader, "DynamoDB Tables:")
-
+	//a.printHeader(printSubHeader, "DynamoDB Tables:")
 	var tables []DynamoDB
 
 	for _, b := range result.TableNames {
@@ -122,7 +122,7 @@ func (a *AWSCloudResource) ListApiGatewayEndpoints(s interface{}) []ApiGateway{
 
 	var endPoints []ApiGateway
 
-	a.printHeader(printSubHeader, "APIGateway Endpoints")
+	//a.printHeader(printSubHeader, "APIGateway Endpoints")
 	for _, b := range result.Items {
 		n := ApiGateway{
 			Name:        aws.StringValue(b.Name),
@@ -157,17 +157,26 @@ func (a *AWSCloudResource) ListCloudFormationStackSets(s interface{}) []CFStackS
 	return stackSets
 }
 
-func (a *AWSCloudResource) ListCloudFormationStack(s interface{}){
+func (a *AWSCloudResource) ListCloudFormationStack(s interface{})[]CFStacks{
 	sess := s.(*session.Session)
 	cfSvc := cloudformation.New(sess)
 
 	result, err := cfSvc.ListStacks(nil)
 	a.handleError("Unable to list StackSets", err)
 	a.printHeader(printSubHeader, "Stacks:")
+
+	var stacks []CFStacks
+
 	for _, b := range result.StackSummaries {
+		n := CFStacks{
+			Name:        aws.StringValue(b.StackName),
+			ID: aws.StringValue(b.StackId),
+		}
+		stacks = append(stacks, n)
 		fmt.Printf("* %s %s\n",
 			aws.StringValue(b.StackName), aws.StringValue(b.StackId))
 	}
+	return stacks
 }
 
 func (a *AWSCloudResource) ListCloudFront(s interface{}){
@@ -209,7 +218,7 @@ func (a *AWSCloud) GetResources()  {
 	a.DynamoDB = awsR.ListDBTables(sess)
 	a.ApiGateway = awsR.ListApiGatewayEndpoints(sess)
 	a.CFStackSets = awsR.ListCloudFormationStackSets(sess)
-		awsR.ListCloudFormationStack(sess)
+	a.CFStacks = awsR.ListCloudFormationStack(sess)
 	awsR.ListCloudFront(sess)
 	awsR.ListCloudFormationStackSets(sess)
 

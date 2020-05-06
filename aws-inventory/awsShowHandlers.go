@@ -29,6 +29,11 @@ type CFStackSets struct {
 	Description string
 }
 
+type CFStacks struct {
+	Name string
+	ID string
+}
+
 func (a *AWSCloud) ShowHandler(w http.ResponseWriter, r *http.Request){
 	tmpl := template.Must(template.ParseFiles("inventory.html"))
 	tmpl.ExecuteTemplate(w, "inventory.html", a)
