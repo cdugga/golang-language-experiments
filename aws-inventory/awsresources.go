@@ -27,6 +27,7 @@ type AWSCloud struct {
 	Lambda []Lambda
 	DynamoDB []DynamoDB
 	ApiGateway []ApiGateway
+	CFStackSets []CFStackSets
 }
 
 func printSubHeader(r string) string {
@@ -134,17 +135,26 @@ func (a *AWSCloudResource) ListApiGatewayEndpoints(s interface{}) []ApiGateway{
 	return endPoints
 }
 
-func (a *AWSCloudResource) ListCloudFormationStackSets(s interface{}){
+func (a *AWSCloudResource) ListCloudFormationStackSets(s interface{}) []CFStackSets{
 	sess := s.(*session.Session)
 	cfSvc := cloudformation.New(sess)
 
 	result, err := cfSvc.ListStackSets(nil)
 	a.handleError("Unable to list StackSets", err)
 	a.printHeader(printSubHeader, "StackSets:")
+
+	var stackSets []CFStackSets
+
 	for _, b := range result.Summaries {
+		n := CFStackSets{
+			Name:        aws.StringValue(b.StackSetName),
+			Description: aws.StringValue(b.Description),
+		}
+		stackSets = append(stackSets, n)
 		fmt.Printf("* %s %s\n",
 			aws.StringValue(b.StackSetName), aws.StringValue(b.Description))
 	}
+	return stackSets
 }
 
 func (a *AWSCloudResource) ListCloudFormationStack(s interface{}){
@@ -198,7 +208,8 @@ func (a *AWSCloud) GetResources()  {
 	a.Lambda = awsR.ListLambda(sess)
 	a.DynamoDB = awsR.ListDBTables(sess)
 	a.ApiGateway = awsR.ListApiGatewayEndpoints(sess)
-	awsR.ListCloudFormationStack(sess)
+	a.CFStackSets = awsR.ListCloudFormationStackSets(sess)
+		awsR.ListCloudFormationStack(sess)
 	awsR.ListCloudFront(sess)
 	awsR.ListCloudFormationStackSets(sess)
 

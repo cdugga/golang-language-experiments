@@ -67,10 +67,29 @@
         <thead>
         <tr>
             <th>API Name</th>
+            <th>API Description</th>
         </tr>
         </thead>
         <tbody>
         {{range .ApiGateway}}
+        <tr>
+            <td>{{.Name}}</td>
+            <td>{{.Description}}</td>
+        </tr>
+        </thead>
+        <tbody>
+        {{end}}
+    </table>
+    <h2>CloudFormation StackSets</h2>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Stack Set Name</th>
+            <th>Stack Set Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{range .CFStackSets}}
         <tr>
             <td>{{.Name}}</td>
             <td>{{.Description}}</td>
