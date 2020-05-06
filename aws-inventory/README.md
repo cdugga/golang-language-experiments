@@ -25,6 +25,15 @@ SubCommands
 
 ```
 
+**Sample Commands**
+---
+```
+    $ go install
+    $ cloudlist --help
+    $ cloudlist resources --provider aws
+    $ cloudlist pricing --provider aws
+    
+```
 
 **Installation Options**
 ---
