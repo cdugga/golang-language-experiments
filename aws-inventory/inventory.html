@@ -62,6 +62,23 @@
         <tbody>
         {{end}}
     </table>
+    <h2>API Gateway Endpoints</h2>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>API Name</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{range .ApiGateway}}
+        <tr>
+            <td>{{.Name}}</td>
+            <td>{{.Description}}</td>
+        </tr>
+        </thead>
+        <tbody>
+        {{end}}
+    </table>
 </div>
 </body>
 </html>

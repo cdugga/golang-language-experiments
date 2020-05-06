@@ -26,6 +26,7 @@ type AWSCloud struct {
 	Bucket	[]Bucket
 	Lambda []Lambda
 	DynamoDB []DynamoDB
+	ApiGateway []ApiGateway
 }
 
 func printSubHeader(r string) string {
@@ -110,18 +111,27 @@ func (a *AWSCloudResource) ListDBTables(s interface{}) []DynamoDB {
 	return tables
 }
 
-func (a *AWSCloudResource) ListApiGatewayEndpoints(s interface{}) {
+func (a *AWSCloudResource) ListApiGatewayEndpoints(s interface{}) []ApiGateway{
 	sess := s.(*session.Session)
 	gatewaySvc := apigateway.New(sess)
 	gatewayInput := &apigateway.GetRestApisInput{
 		Limit: aws.Int64(5),
 	}
 	result, _ := gatewaySvc.GetRestApis(gatewayInput)
+
+	var endPoints []ApiGateway
+
 	a.printHeader(printSubHeader, "APIGateway Endpoints")
 	for _, b := range result.Items {
+		n := ApiGateway{
+			Name:        aws.StringValue(b.Name),
+			Description: aws.StringValue(b.Description),
+		}
+		endPoints = append(endPoints, n)
 		fmt.Printf("* %s ::description:  %s\n",
 			aws.StringValue(b.Name), aws.StringValue(b.Description))
 	}
+	return endPoints
 }
 
 func (a *AWSCloudResource) ListCloudFormationStackSets(s interface{}){
@@ -187,7 +197,7 @@ func (a *AWSCloud) GetResources()  {
 	a.Bucket = awsR.ListStorageBuckets(sess)
 	a.Lambda = awsR.ListLambda(sess)
 	a.DynamoDB = awsR.ListDBTables(sess)
-	awsR.ListApiGatewayEndpoints(sess)
+	a.ApiGateway = awsR.ListApiGatewayEndpoints(sess)
 	awsR.ListCloudFormationStack(sess)
 	awsR.ListCloudFront(sess)
 	awsR.ListCloudFormationStackSets(sess)
