@@ -80,6 +80,24 @@
         <tbody>
         {{end}}
     </table>
+    <h2>CloudFront EndPoints</h2>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Stack ID</th>
+            <th>Stack ARN</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{range .CloudFront}}
+        <tr>
+            <td>{{.ID}}</td>
+            <td>{{.ARN}}</td>
+        </tr>
+        </thead>
+        <tbody>
+        {{end}}
+    </table>
     <h2>CloudFormation StackSets</h2>
     <table class="table">
         <thead>

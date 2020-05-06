@@ -29,6 +29,7 @@ type AWSCloud struct {
 	ApiGateway []ApiGateway
 	CFStackSets []CFStackSets
 	CFStacks []CFStacks
+	CloudFront []CloudFront
 }
 
 func printSubHeader(r string) string {
@@ -178,17 +179,26 @@ func (a *AWSCloudResource) ListCloudFormationStack(s interface{})[]CFStacks{
 	return stacks
 }
 
-func (a *AWSCloudResource) ListCloudFront(s interface{}){
+func (a *AWSCloudResource) ListCloudFront(s interface{}) []CloudFront{
 	sess := s.(*session.Session)
 	cfSvc := cloudfront.New(sess)
 
 	result, err := cfSvc.ListDistributions(nil)
 	a.handleError("Unable to list CloudFront Dists", err)
-	a.printHeader(printSubHeader, "CloudFront Distribution:")
+	//a.printHeader(printSubHeader, "CloudFront Distribution:")
+	var cfront []CloudFront
 	for _, b := range result.DistributionList.Items {
-		fmt.Printf("* %s %s\n",
-			aws.StringValue(b.Id), aws.StringValue(b.ARN))
+
+		n := CloudFront{
+			ID:        aws.StringValue(b.Id),
+			ARN: aws.StringValue(b.ARN),
+		}
+		cfront = append(cfront, n)
+		//fmt.Printf("* %s %s\n",
+		//	aws.StringValue(b.Id), aws.StringValue(b.ARN))
 	}
+
+	return  cfront
 }
 
 func (a *AWSCloudResource) ListMetrics(s interface{}){
@@ -218,7 +228,7 @@ func (a *AWSCloud) GetResources()  {
 	a.ApiGateway = awsR.ListApiGatewayEndpoints(sess)
 	a.CFStackSets = awsR.ListCloudFormationStackSets(sess)
 	a.CFStacks = awsR.ListCloudFormationStack(sess)
-	awsR.ListCloudFront(sess)
+	a.CloudFront = awsR.ListCloudFront(sess)
 	awsR.ListCloudFormationStackSets(sess)
 
 }
