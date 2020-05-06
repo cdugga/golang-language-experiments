@@ -64,14 +64,13 @@ func (a *AWSCloudResource) ListStorageBuckets(s interface{}) []Bucket {
 	svc := s3.New(sess)
 	result, err := svc.ListBuckets(nil)
 	a.handleError("Unable to list buckets", err)
-	a.printHeader(printSubHeader, "S3 Buckets:")
+	//a.printHeader(printSubHeader, "S3 Buckets:")
 
 	var buckets []Bucket
 	for _, b := range result.Buckets {
 		n := Bucket{BucketName: aws.StringValue(b.Name), CreationDate: aws.TimeValue(b.CreationDate).String()}
 		buckets = append( buckets, n)
-
-		fmt.Printf("* %s created on %s\n",aws.StringValue(b.Name), aws.TimeValue(b.CreationDate))
+		//fmt.Printf("* %s created on %s\n",aws.StringValue(b.Name), aws.TimeValue(b.CreationDate))
 	}
 	return buckets
 }
@@ -82,14 +81,14 @@ func (a *AWSCloudResource) ListLambda(s interface{}) []Lambda {
 	lambdaSvc := lambda.New(sess)
 	result, err := lambdaSvc.ListFunctions(nil)
 	a.handleError("Unable to list Lambda", err)
-	a.printHeader(printSubHeader, "Lambdas:")
+	//a.printHeader(printSubHeader, "Lambdas:")
 
 	var lambda []Lambda
 	for _, b := range result.Functions {
 		n := Lambda{FunctionName: aws.StringValue(b.FunctionName), FunctionArn: aws.StringValue(b.FunctionArn)}
 		lambda = append(lambda, n)
-		fmt.Printf("* %s :: function arn ::  %s\n",
-			aws.StringValue(b.FunctionName), aws.StringValue(b.FunctionArn))
+		//fmt.Printf("* %s :: function arn ::  %s\n",
+		//	aws.StringValue(b.FunctionName), aws.StringValue(b.FunctionArn))
 	}
 
 	return lambda
@@ -106,8 +105,8 @@ func (a *AWSCloudResource) ListDBTables(s interface{}) []DynamoDB {
 	for _, b := range result.TableNames {
 		n := DynamoDB{ DatabaseName: aws.StringValue(b)}
 		tables = append(tables, n)
-		fmt.Printf("* %s \n",
-			aws.StringValue(b))
+		//fmt.Printf("* %s \n",
+		//	aws.StringValue(b))
 	}
 	return tables
 }
@@ -129,8 +128,8 @@ func (a *AWSCloudResource) ListApiGatewayEndpoints(s interface{}) []ApiGateway{
 			Description: aws.StringValue(b.Description),
 		}
 		endPoints = append(endPoints, n)
-		fmt.Printf("* %s ::description:  %s\n",
-			aws.StringValue(b.Name), aws.StringValue(b.Description))
+		//fmt.Printf("* %s ::description:  %s\n",
+		//	aws.StringValue(b.Name), aws.StringValue(b.Description))
 	}
 	return endPoints
 }
@@ -141,7 +140,7 @@ func (a *AWSCloudResource) ListCloudFormationStackSets(s interface{}) []CFStackS
 
 	result, err := cfSvc.ListStackSets(nil)
 	a.handleError("Unable to list StackSets", err)
-	a.printHeader(printSubHeader, "StackSets:")
+	//a.printHeader(printSubHeader, "StackSets:")
 
 	var stackSets []CFStackSets
 
@@ -151,8 +150,8 @@ func (a *AWSCloudResource) ListCloudFormationStackSets(s interface{}) []CFStackS
 			Description: aws.StringValue(b.Description),
 		}
 		stackSets = append(stackSets, n)
-		fmt.Printf("* %s %s\n",
-			aws.StringValue(b.StackSetName), aws.StringValue(b.Description))
+		//fmt.Printf("* %s %s\n",
+		//	aws.StringValue(b.StackSetName), aws.StringValue(b.Description))
 	}
 	return stackSets
 }
@@ -163,7 +162,7 @@ func (a *AWSCloudResource) ListCloudFormationStack(s interface{})[]CFStacks{
 
 	result, err := cfSvc.ListStacks(nil)
 	a.handleError("Unable to list StackSets", err)
-	a.printHeader(printSubHeader, "Stacks:")
+	//a.printHeader(printSubHeader, "Stacks:")
 
 	var stacks []CFStacks
 
@@ -173,8 +172,8 @@ func (a *AWSCloudResource) ListCloudFormationStack(s interface{})[]CFStacks{
 			ID: aws.StringValue(b.StackId),
 		}
 		stacks = append(stacks, n)
-		fmt.Printf("* %s %s\n",
-			aws.StringValue(b.StackName), aws.StringValue(b.StackId))
+		//fmt.Printf("* %s %s\n",
+		//	aws.StringValue(b.StackName), aws.StringValue(b.StackId))
 	}
 	return stacks
 }
