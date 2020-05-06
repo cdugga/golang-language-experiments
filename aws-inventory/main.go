@@ -76,6 +76,10 @@ func main() {
 	myFigure := figure.NewFigure("CloudList", "speed", true)
 	myFigure.Print()
 
+	fmt.Println("....")
+	fmt.Println("....")
+	fmt.Println("Output available on http://localhost:3000/inventory ")
+
 	app := &cli.App{
 		Name: "Cloud Automation Tool.",
 		Usage: "Fetch Resource usage and pricing across AWS, GCP and Azure cloud providers",
