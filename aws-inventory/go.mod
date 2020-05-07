@@ -1,4 +1,4 @@
-module github.com/cdugga/golang-repos/aws-inventory
+module github.com/cdugga/golang-repos
 
 go 1.14
 
