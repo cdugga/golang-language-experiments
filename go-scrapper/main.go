@@ -25,6 +25,11 @@ func main(){
 		c.Visit(e.Request.AbsoluteURL(link))
 	})
 
+
+	c.OnError(func(r *colly.Response, err error) {
+		fmt.Println("Request URL:", r.Request.URL, "failed with response:", r, "\nError:", err)
+	})
+
 	// Start scraping on https://hackerspaces.org
 	c.Visit("https://hackerspaces.org/")
 }
