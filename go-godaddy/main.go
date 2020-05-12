@@ -7,12 +7,21 @@ import (
 	"os"
 )
 
+
+const (
+
+)
+
 func GetAvailableDomains(){
-	req, err := http.NewRequest("GET", os.ExpandEnv("https://api.godaddy.com/v1/domains/cloudstarter.org"), nil)
+	req, err := http.NewRequest("GET", os.ExpandEnv("https://api.godaddy.com/v1/domains/${DOMAIN}"), nil)
 
 	if err != nil {
 		fmt.Printf("%s", err)
 	}
+
+
+	req.Header.Set("Authorization", os.ExpandEnv("sso-key ${API_KEY}:${API_SECRET}"))
+
 	resp, err := http.DefaultClient.Do(req)
 	bodyBytes, err2 := ioutil.ReadAll(resp.Body)
 
