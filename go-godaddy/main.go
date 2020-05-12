@@ -13,14 +13,14 @@ const (
 )
 
 func GetAvailableDomains(){
-	req, err := http.NewRequest("GET", os.ExpandEnv("https://api.godaddy.com/v1/domains/${DOMAIN}"), nil)
+	req, err := http.NewRequest("GET", os.ExpandEnv("https://api.godaddy.com/v1/domains/available?domain=${DOMAIN}"), nil)
 
 	if err != nil {
 		fmt.Printf("%s", err)
 	}
 
-
-	req.Header.Set("Authorization", os.ExpandEnv("sso-key ${API_KEY}:${API_SECRET}"))
+	//req.Header.Set("Authorization", "sso-key ")
+	req.Header.Set("Authorization", "sso-key ${GODADDY_API_KEY}:${GODADDY_SECRET_KEY}")
 
 	resp, err := http.DefaultClient.Do(req)
 	bodyBytes, err2 := ioutil.ReadAll(resp.Body)
@@ -41,7 +41,8 @@ func GetAvailableDomains(){
 }
 
 func main(){
-	fmt.Print("Domain checker")
+	fmt.Println("Domain checker")
+
 
 	GetAvailableDomains()
 }
