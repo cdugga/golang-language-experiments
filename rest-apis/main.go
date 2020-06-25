@@ -10,7 +10,7 @@ import (
 func main() {
 
 
-	fmt.Print("Hello Rest APIs")
+	fmt.Println("Hello Rest APIs")
 
 	http.HandleFunc("/goodbye", func(http.ResponseWriter, *http.Request) {
 		log.Println("GoodBye World")
