@@ -11,21 +11,13 @@ Invoke-RestMethod -Uri http://localhost:8080/ -B $Parameters -Method GET
 
 
 
-$JSON = @'
-{
- "@type":"login",
- "name":"xxx@gmail.com",
- "password":"yyy"
-}
-'@
-
+// pass json 
 $body = @"
-{
-    "id": 1,
-    "name": "tea",
-    "description": "a nice cup of tea"   
-}
+ {
+     "id": 1,
+     "name": "tea",
+     "description": "a nice cup of tea"
+ }
 "@
-
 
 Invoke-WebRequest -Uri "http://localhost:8080/" -Method Post -Body $body -ContentType "application/json"
