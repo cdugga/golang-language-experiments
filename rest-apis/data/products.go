@@ -12,7 +12,7 @@ type Product struct {
 	ID 		int `json:"id"`
 	Name 	string `json:"name" validate:"required"`
 	Description string `json:"description"`
-	Price 		float32 `json:"price validate:"lt=0"`
+	Price 		float32 `json:"price" validate:"lt=0"`
 	SKU 		string `json:"sku"`
 	CreatedOn 	string `json:"-"`
 	UpdatedOn 	string `json:"-"`
