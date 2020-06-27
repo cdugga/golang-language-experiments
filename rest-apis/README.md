@@ -19,12 +19,10 @@ $body = @"
      "description": "a nice cup of tea"
  }
 "@
-
+// write data with POST request
 Invoke-WebRequest -Uri "http://localhost:8080/" -Method Post -Body $body -ContentType "application/json"
 
-
-Invoke-WebRequest -Uri "http://localhost:8080/1" -Method Put 
-
+// write data with PUSH request
 $update = @"
  {
      "id": 1,
@@ -32,5 +30,4 @@ $update = @"
      "description": "a nice cup of tea 2"
  }
 "@
-
 Invoke-WebRequest -Uri "http://localhost:8080/4" -Method Put -Body $update -ContentType "application/json"
