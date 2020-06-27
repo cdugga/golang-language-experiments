@@ -8,7 +8,7 @@ func TestChecksValidation(t *testing.T){
 		Name:        "Tea",
 		Description: "",
 		Price:       1.0,
-		SKU:         "",
+		SKU:         "abs-abc-def",
 		CreatedOn:   "",
 		UpdatedOn:   "",
 		DeletedOn:   "",
