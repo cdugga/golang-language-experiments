@@ -9,11 +9,34 @@ import (
 	"time"
 )
 
+// Product defines the structure for an API product
+// swagger:model
 type Product struct {
+	// the id for the product
+	//
+	// required: false
+	// min: 1
 	ID 		int `json:"id"`
+	// the name for this poduct
+	//
+	// required: true
+	// max length: 255
 	Name 	string `json:"name" validate:"required"`
+
+	// the description for this poduct
+	//
+	// required: false
+	// max length: 10000
 	Description string `json:"description"`
+	// the price for the product
+	//
+	// required: true
+	// min: 0.01
 	Price 		float32 `json:"price" validate:"gt=0"`
+	// the SKU for the product
+	//
+	// required: true
+	// pattern: [a-z]+-[a-z]+-[a-z]+
 	SKU 		string `json:"sku" validate:"required,sku"`
 	CreatedOn 	string `json:"-"`
 	UpdatedOn 	string `json:"-"`
@@ -63,6 +86,30 @@ func AddProduct(p *Product){
 	productList = append(productList, p)
 }
 
+// DeleteProduct deletes a product from the database
+func DeleteProduct(id int) error {
+	i := findIndexByProductID(id)
+	if i == -1 {
+		return ErrProductNotFound
+	}
+
+	productList = append(productList[:i], productList[i+1])
+
+	return nil
+}
+
+// findIndex finds the index of a product in the database
+// returns -1 when no product can be found
+func findIndexByProductID(id int) int {
+	for i, p := range productList {
+		if p.ID == id {
+			return i
+		}
+	}
+
+	return -1
+}
+
 func UpdateProduct(id int, p *Product) error{
 	_, pos, err := FindProduct(id)
 	if err != nil {
@@ -74,7 +121,7 @@ func UpdateProduct(id int, p *Product) error{
 	return nil
 
 }
-
+// ErrProductNotFound is an error raised when a product can not be found in the database
 var ErrProductNotFound = fmt.Errorf("Product not found")
 
 func FindProduct(id int) (*Product, int, error){

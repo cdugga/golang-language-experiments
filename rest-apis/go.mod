@@ -3,7 +3,7 @@ module main.go
 go 1.14
 
 require (
-	github.com/go-openapi/runtime v0.19.19 // indirect
+	github.com/go-openapi/runtime v0.19.19
 	github.com/go-playground/validator/v10 v10.3.0
 	github.com/go-swagger/go-swagger v0.24.0 // indirect
 	github.com/gorilla/mux v1.7.4

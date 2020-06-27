@@ -17,12 +17,32 @@ package handlers
 import (
 	"context"
 	"fmt"
-	"github.com/gorilla/mux"
 	"log"
 	"main.go/data"
 	"net/http"
-	"strconv"
 )
+
+// A list of products returns in the response
+// swagger:response productsResponse
+type productsResponse struct {
+	// All products in the system
+	// in: body
+	Body []data.Product
+}
+
+// swagger:response noContent
+type productNoContent struct {
+
+}
+
+// swagger:parameters deleteProduct
+type productIDParameterWrapper struct {
+	// The Id of the product to delete from the database
+	// in:path
+	// required: true
+	ID int	 `json:"id"`
+}
+
 
 type Products struct{
 	l *log.Logger
@@ -72,52 +92,11 @@ func (p Products) MiddleWareProductValidation(next http.Handler) http.Handler{
 
 }
 
-func (p Products) UpdateProducts(rw http.ResponseWriter, r *http.Request){
 
-	vars := mux.Vars(r)
-	id , err:= strconv.Atoi(vars["id"])
-	if err != nil {
-		http.Error(rw, "Unable to convert it", http.StatusBadRequest)
-		return
-	}
 
-	p.l.Println("Handle PUT Requests", id)
 
-	prod := r.Context().Value(KeyProduct{}).(*data.Product)
-	p.l.Printf("Prod: %#v", prod)
 
-	err = data.UpdateProduct(id, prod)
-	if err == data.ErrProductNotFound {
-		http.Error(rw, "Product not found", http.StatusNotFound)
-		return
-	}
-	if err != nil {
-		http.Error(rw, "Product not found", http.StatusInternalServerError)
-		return
-	}
-}
 
-func (p *Products) AddProduct(rw http.ResponseWriter, r *http.Request) {
-	p.l.Println("Handle POST Requests")
-
-	prod := r.Context().Value(KeyProduct{}).(*data.Product)
-	p.l.Printf("Prod: %#v", prod)
-
-	data.AddProduct(prod)
-}
-
-func (p* Products) GetProducts(rw http.ResponseWriter, r *http.Request){
-
-	p.l.Println("Handle GET Requests")
-
-	lp := data.GetProducts()
-
-	err :=  lp.ToJSON(rw)  //json.Marshal(lp)
-
-	if err != nil {
-		http.Error(rw, "Unable to marshal json", http.StatusInternalServerError)
-	}
-}
 
 
 
