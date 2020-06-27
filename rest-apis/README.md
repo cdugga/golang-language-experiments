@@ -1,8 +1,7 @@
 Invoke-RestMethod -Uri http://localhost:8080/ -B "Colin" -Method POST
-
 Invoke-WebRequest http://localhost:8080/ -B "Colin" -Method POST
 
-//Pass params with Get
+//Get
 $Parameters = @{
   id = 'John'
   Children = 'Abe','Karen','Jo'
@@ -10,8 +9,7 @@ $Parameters = @{
 Invoke-RestMethod -Uri http://localhost:8080/ -B $Parameters -Method GET
 
 
-
-// pass json 
+//POST (ADD) 
 $body = @"
  {
      "id": 100,
@@ -22,7 +20,7 @@ $body = @"
 // write data with POST request
 Invoke-WebRequest -Uri "http://localhost:8080/" -Method Post -Body $body -ContentType "application/json"
 
-// write data with PUSH request
+//PUT (UPDATE)
 $update = @"
  {
      "id": 1,
