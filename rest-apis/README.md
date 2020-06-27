@@ -29,3 +29,17 @@ $update = @"
  }
 "@
 Invoke-WebRequest -Uri "http://localhost:8080/4" -Method Put -Body $update -ContentType "application/json"
+
+//POST (Test Validation)
+//POST (ADD) 
+$bodyval = @"
+ {
+     "id": 100,
+     "name": "tea",
+     "description": "a nice cup of tea",
+     "price": 1.0,
+     "sku": "abc-asd-def"
+ }
+"@
+// write data with POST request
+Invoke-WebRequest -Uri "http://localhost:8080/" -Method Post -Body $bodyval -ContentType "application/json"
