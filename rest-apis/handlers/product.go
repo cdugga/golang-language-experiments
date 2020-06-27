@@ -19,7 +19,6 @@ func NewProduct(l *log.Logger) *Products {
 }
 
 
-
 type KeyProduct struct{}
 
 func (p Products) MiddleWareProductValidation(next http.Handler) http.Handler{
