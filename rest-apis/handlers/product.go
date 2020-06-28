@@ -22,25 +22,11 @@ import (
 	"net/http"
 )
 
-// A list of products returns in the response
-// swagger:response productsResponse
-type productsResponse struct {
-	// All products in the system
-	// in: body
-	Body []data.Product
-}
 
-// swagger:response noContent
-type productNoContent struct {
 
-}
-
-// swagger:parameters deleteProduct
-type productIDParameterWrapper struct {
-	// The Id of the product to delete from the database
-	// in:path
-	// required: true
-	ID int	 `json:"id"`
+// ValidationError is a collection of validation error messages
+type ValidationError struct {
+	Messages []string `json:"messages"`
 }
 
 

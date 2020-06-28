@@ -43,3 +43,6 @@ $bodyval = @"
 "@
 // write data with POST request
 Invoke-WebRequest -Uri "http://localhost:8080/" -Method Post -Body $bodyval -ContentType "application/json"
+
+//Execute Makefile
+make swagger

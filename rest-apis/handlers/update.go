@@ -7,6 +7,15 @@ import (
 	"strconv"
 )
 
+// swagger:route PUT /products products updateProduct
+// Update a products details
+//
+// responses:
+//	201: noContent
+//  404: errorResponse
+//  422: errorValidation
+
+// Update handles PUT requests to update products
 func (p Products) UpdateProducts(rw http.ResponseWriter, r *http.Request){
 
 	vars := mux.Vars(r)
