@@ -1,3 +1,13 @@
+// unit testing
+
+go get -u github.com/logrusorgru/aurora
+// get coverage in package data
+go test -cover .\data\
+// use coverprofile to generate report
+go test -coverprofile=cover .\data
+// generate html report
+go tool cover -html=cover -o .\cover.html
+
 Invoke-RestMethod -Uri http://localhost:8080/ -B "Colin" -Method POST
 Invoke-WebRequest http://localhost:8080/ -B "Colin" -Method POST
 

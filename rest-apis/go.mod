@@ -6,6 +6,7 @@ require (
 	github.com/go-openapi/runtime v0.19.19
 	github.com/go-playground/validator/v10 v10.3.0
 	github.com/go-swagger/go-swagger v0.24.0 // indirect
+	github.com/gorilla/handlers v1.4.2
 	github.com/gorilla/mux v1.7.4
 	github.com/spf13/afero v1.3.0 // indirect
 	golang.org/x/net v0.0.0-20200625001655-4c5254603344 // indirect

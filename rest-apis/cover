@@ -1,0 +1,24 @@
+mode: set
+main.go/data/products.go:48.35,54.2 3 1
+main.go/data/products.go:56.48,61.23 3 1
+main.go/data/products.go:64.2,64.13 1 1
+main.go/data/products.go:61.23,63.3 1 0
+main.go/data/products.go:68.44,71.2 2 0
+main.go/data/products.go:74.45,77.2 2 0
+main.go/data/products.go:80.29,82.2 1 0
+main.go/data/products.go:84.28,87.2 2 0
+main.go/data/products.go:90.34,92.13 2 0
+main.go/data/products.go:96.2,98.12 2 0
+main.go/data/products.go:92.13,94.3 1 0
+main.go/data/products.go:103.39,104.32 1 0
+main.go/data/products.go:110.2,110.11 1 0
+main.go/data/products.go:104.32,105.17 1 0
+main.go/data/products.go:105.17,107.4 1 0
+main.go/data/products.go:113.45,115.16 2 0
+main.go/data/products.go:118.2,121.12 3 0
+main.go/data/products.go:115.16,117.3 1 0
+main.go/data/products.go:127.48,128.31 1 0
+main.go/data/products.go:133.2,133.33 1 0
+main.go/data/products.go:128.31,129.16 1 0
+main.go/data/products.go:129.16,131.4 1 0
+main.go/data/products.go:137.22,140.2 2 0

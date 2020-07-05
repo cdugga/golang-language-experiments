@@ -1,0 +1,263 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<style>
+			body {
+				background: black;
+				color: rgb(80, 80, 80);
+			}
+			body, pre, #legend span {
+				font-family: Menlo, monospace;
+				font-weight: bold;
+			}
+			#topbar {
+				background: black;
+				position: fixed;
+				top: 0; left: 0; right: 0;
+				height: 42px;
+				border-bottom: 1px solid rgb(80, 80, 80);
+			}
+			#content {
+				margin-top: 50px;
+			}
+			#nav, #legend {
+				float: left;
+				margin-left: 10px;
+			}
+			#legend {
+				margin-top: 12px;
+			}
+			#nav {
+				margin-top: 10px;
+			}
+			#legend span {
+				margin: 0 5px;
+			}
+			.cov0 { color: rgb(192, 0, 0) }
+.cov1 { color: rgb(128, 128, 128) }
+.cov2 { color: rgb(116, 140, 131) }
+.cov3 { color: rgb(104, 152, 134) }
+.cov4 { color: rgb(92, 164, 137) }
+.cov5 { color: rgb(80, 176, 140) }
+.cov6 { color: rgb(68, 188, 143) }
+.cov7 { color: rgb(56, 200, 146) }
+.cov8 { color: rgb(44, 212, 149) }
+.cov9 { color: rgb(32, 224, 152) }
+.cov10 { color: rgb(20, 236, 155) }
+
+		</style>
+	</head>
+	<body>
+		<div id="topbar">
+			<div id="nav">
+				<select id="files">
+				
+				<option value="file0">main.go/data/products.go (19.4%)</option>
+				
+				</select>
+			</div>
+			<div id="legend">
+				<span>not tracked</span>
+			
+				<span class="cov0">not covered</span>
+				<span class="cov8">covered</span>
+			
+			</div>
+		</div>
+		<div id="content">
+		
+		<pre class="file" id="file0" style="display: none">package data
+
+import (
+        "encoding/json"
+        "fmt"
+        "github.com/go-playground/validator/v10"
+        "io"
+        "regexp"
+        "time"
+)
+
+// Product defines the structure for an API product
+// swagger:model
+type Product struct {
+        // the id for the product
+        //
+        // required: false
+        // min: 1
+        ID                 int `json:"id"`
+        // the name for this poduct
+        //
+        // required: true
+        // max length: 255
+        Name         string `json:"name" validate:"required"`
+
+        // the description for this poduct
+        //
+        // required: false
+        // max length: 10000
+        Description string `json:"description"`
+        // the price for the product
+        //
+        // required: true
+        // min: 0.01
+        Price                 float32 `json:"price" validate:"gt=0"`
+        // the SKU for the product
+        //
+        // required: true
+        // pattern: [a-z]+-[a-z]+-[a-z]+
+        SKU                 string `json:"sku" validate:"required,sku"`
+        CreatedOn         string `json:"-"`
+        UpdatedOn         string `json:"-"`
+        DeletedOn         string `json:"-"`
+}
+
+type Products []*Product
+
+func (p *Product) Validate() error<span class="cov8" title="1">{
+        validate := validator.New()
+
+        validate.RegisterValidation("sku", validateSku)
+
+        return validate.Struct(p)
+}</span>
+
+func validateSku(fl validator.FieldLevel) bool <span class="cov8" title="1">{
+        re := regexp.MustCompile(`[a-z]+-[a-z]+-[a-z]+`)
+
+        matches := re.FindAllString(fl.Field().String(), -1)
+
+        if len(matches) != 1 </span><span class="cov0" title="0">{
+                return false
+        }</span>
+        <span class="cov8" title="1">return true</span>
+}
+
+
+func (p*Products) ToJSON(w io.Writer) error<span class="cov0" title="0">{
+        e := json.NewEncoder(w)
+        return e.Encode(p)
+}</span>
+
+
+func (p*Product) FromJSON(R io.Reader) error<span class="cov0" title="0">{
+        e := json.NewDecoder(R)
+        return e.Decode(p)
+}</span>
+
+
+func GetProducts() Products <span class="cov0" title="0">{
+        return productList
+}</span>
+
+func AddProduct(p *Product)<span class="cov0" title="0">{
+        p.ID = getNextID()
+        productList = append(productList, p)
+}</span>
+
+// DeleteProduct deletes a product from the database
+func DeleteProduct(id int) error <span class="cov0" title="0">{
+        i := findIndexByProductID(id)
+        if i == -1 </span><span class="cov0" title="0">{
+                return ErrProductNotFound
+        }</span>
+
+        <span class="cov0" title="0">productList = append(productList[:i], productList[i+1])
+
+        return nil</span>
+}
+
+// findIndex finds the index of a product in the database
+// returns -1 when no product can be found
+func findIndexByProductID(id int) int <span class="cov0" title="0">{
+        for i, p := range productList </span><span class="cov0" title="0">{
+                if p.ID == id </span><span class="cov0" title="0">{
+                        return i
+                }</span>
+        }
+
+        <span class="cov0" title="0">return -1</span>
+}
+
+func UpdateProduct(id int, p *Product) error<span class="cov0" title="0">{
+        _, pos, err := FindProduct(id)
+        if err != nil </span><span class="cov0" title="0">{
+                return err
+        }</span>
+        <span class="cov0" title="0">p.ID = id
+        productList[pos] = p
+
+        return nil</span>
+
+}
+// ErrProductNotFound is an error raised when a product can not be found in the database
+var ErrProductNotFound = fmt.Errorf("Product not found")
+
+func FindProduct(id int) (*Product, int, error)<span class="cov0" title="0">{
+        for i,p := range productList </span><span class="cov0" title="0">{
+                if p.ID == id</span><span class="cov0" title="0">{
+                        return p,i, nil
+                }</span>
+        }
+        <span class="cov0" title="0">return nil,0,ErrProductNotFound</span>
+}
+
+
+func getNextID() int <span class="cov0" title="0">{
+        lp := productList[len(productList)-1]
+        return lp.ID + 1
+}</span>
+
+var productList = []*Product{
+        &amp;Product{
+                ID:          1,
+                Name:        "Latte",
+                Description: "Frothy milky coffee",
+                Price:       2.45,
+                SKU:         "abc123",
+                CreatedOn:   time.Now().UTC().String(),
+                UpdatedOn:   time.Now().UTC().String(),
+        },
+        &amp;Product{
+                ID:          2,
+                Name:        "Espresso",
+                Description: "Short and strong coffee without milk",
+                Price:       1.99,
+                SKU:         "fjd34",
+                CreatedOn:   time.Now().UTC().String(),
+                UpdatedOn:   time.Now().UTC().String(),
+        },
+}
+</pre>
+		
+		</div>
+	</body>
+	<script>
+	(function() {
+		var files = document.getElementById('files');
+		var visible;
+		files.addEventListener('change', onChange, false);
+		function select(part) {
+			if (visible)
+				visible.style.display = 'none';
+			visible = document.getElementById(part);
+			if (!visible)
+				return;
+			files.value = part;
+			visible.style.display = 'block';
+			location.hash = part;
+		}
+		function onChange() {
+			select(files.value);
+			window.scrollTo(0, 0);
+		}
+		if (location.hash != "") {
+			select(location.hash.substr(1));
+		}
+		if (!visible) {
+			select("file0");
+		}
+	})();
+	</script>
+</html>
