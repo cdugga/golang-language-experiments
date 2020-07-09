@@ -4,7 +4,9 @@ import (
 	"context"
 	"github.com/go-openapi/runtime/middleware"
 	"github.com/gorilla/mux"
+	"github.com/spf13/viper"
 	"log"
+	"main.go/config"
 	"main.go/handlers"
 	"net/http"
 	"os"
@@ -13,7 +15,27 @@ import (
 	gohandlers "github.com/gorilla/handlers"
 )
 
+func loadEnv() {
+
+	viper.SetConfigName("config")
+	viper.AddConfigPath(".")
+	var environment config.Environment
+
+	if err := viper.ReadInConfig(); err != nil {
+		log.Fatalf("Error reading config file, %s", err)
+	}
+	err := viper.Unmarshal(&environment)
+
+	if err != nil {
+		log.Fatalf("unable to decode into struct, %v", err)
+	}
+	log.Printf("port for this application is %d", environment.Server.Port)
+}
+
 func main() {
+
+	loadEnv()
+
 
 	l := log.New(os.Stdout, "product-api", log.LstdFlags)
 
