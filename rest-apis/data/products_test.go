@@ -1,23 +1,12 @@
 package data
 
 import (
+	"bytes"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
-//p := &Product{
-//ID:          0,
-//Name:        "Tea",
-//Description: "",
-//Price:       1.0,
-//SKU:         "abs-abc-def",
-//CreatedOn:   "",
-//UpdatedOn:   "",
-//DeletedOn:   "",
-//}
-
-
-func TestMissingNameAndSKUError(t *testing.T){
+func TestInvalidProductMissingNameAndSKU(t *testing.T){
 	p := &Product{
 		Description: "",
 		Price:       1.0,
@@ -26,8 +15,7 @@ func TestMissingNameAndSKUError(t *testing.T){
 	assert.Len(t, err, 2)
 }
 
-
-func TestMissingNameError(t *testing.T){
+func TestInvalidProductMissingName(t *testing.T){
 	p := &Product{
 		Description: "",
 		Price:       1.0,
@@ -51,6 +39,17 @@ func TestValidProduct(t *testing.T){
 
 	err:= p.Validate()
 	assert.NoError(t,err)
-
 }
+
+func TestProducts_ToJSON(t *testing.T) {
+
+	p := productList
+	b := bytes.NewBufferString("")
+
+	err := oJSON(p, b)
+	assert.NoError(err)
+}
+
+
+
 
