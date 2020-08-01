@@ -8,3 +8,5 @@ maxSequence[-2,-3,4,-1,-2,1,5,3] => 4 +(-1)+(-2)+1+5=7
 2) if list is Z- (negative numbers) than return 0
 3) Empty list considered to have zero greatest sum, return 0
 4) Empty list considered valid sublist/subarrary
+
+See Kadane's algorithm
