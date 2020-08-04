@@ -1,0 +1,5 @@
+function called LCS which accepts 2 sequences and returns the longest subsequence common to the passed in sequences
+
+subsequence does not need to contain consecutive terms of the original
+=> "abfgejs" , "ags" = "ags"
+=> "abched" , "def" = "de"
