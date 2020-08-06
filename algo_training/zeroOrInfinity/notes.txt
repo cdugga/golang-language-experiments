@@ -16,3 +16,14 @@ divide by same power of 10 to restore decimals we require
 
 * Example truncates to 6 decimal places
 math.Trunc((1/float64(factorial(n)) * sum) *1000000 )/1000000
+
+* math.Log (how many of one number do we need to multiple to get another)
+log2(8) = 3 (or 2x2x2)
+log5(625) = 5 (or 5x5x5x5x5)
+
+* The exponent says how many times to use the number in a multiplication. Math.exp()
+E.g. 2 expo 3 = 2x2x2 =8
+=> 2?=8 =3
+
+* 1e6
+Means 1 times 10 to the power of 6
