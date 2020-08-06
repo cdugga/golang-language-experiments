@@ -2,6 +2,7 @@ package zeroOrInfinity
 
 import (
 	"fmt"
+	"math"
 )
 
 func ZeroOrInfinity() {
@@ -19,7 +20,7 @@ func Going(n int) float64 {
 	for i := n; i >= 1; i-- {
 		sum += float64(factorial(i))
 	}
-	return 1/float64(factorial(n)) * sum
+	return math.Trunc((1/float64(factorial(n)) * sum) *1000000 )/1000000
 }
 
 func factorial(n int) int {
