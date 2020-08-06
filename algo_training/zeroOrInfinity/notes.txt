@@ -1,0 +1,8 @@
+factorial
+- used to represent the product of natural numbers
+- applicable for natural numbers and whole numbers only ( this means negative and fractional numbers are excluded)
+
+5! = 5.4.3.2.1 = 120
+6! = 6.(120) = 720
+Dividing large factorials represents an opportunity to simplify.
+100!/98! = 100.99/1 = 9900 (Note that everything fom 98.97.96....1 is cancelled out as exists for both so we just get product of remainder)
