@@ -1,0 +1,21 @@
+
+
+Irreducible fraction - > numerator and denominator are integers that have no other common divisors than 1.
+In other words a fraction a/b is irreducible if and only if a and b are coprime ( both have largest common divisor of 1)
+
+
+Map out fractions across n rows of a chesstable. Each row is n columns wide and n rows
+long
+
+Rows follow convention whereby:
+
+var sum
+for i := 1; i <=n; i++
+    for each row need to iterate through each column and sum
+    for j := 1; j <= n; j++
+        sum += i/j
+
+row1 starts with 1/n+1 2/3 3/4 4/5 5/6 ..
+row2 starts wth  1/n+2 2/
+row3 starts wth  1/n+3
+rown starts wth  1/n+n
